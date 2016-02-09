@@ -1,0 +1,19 @@
+extends ../shared/layout
+block main-content
+    h2.text-center Create playlist
+    form(method="post")
+        label(for="title") Title
+        input(id="title" class="form-control" type="text" name="title" placeholder="Title")
+        br
+        label(for="description") Description
+        input(id="description" class="form-control" type="text" name="description" placeholder="Description")
+        br
+        label(for="category") Category
+        select(id="category" class="form-control" name="category")
+            each category in categories
+                option(value="#{category}") #{category}
+        br
+        label(for="isPublic") Public
+        input(id="isPublic" type="checkbox" name="isPublic")
+        br
+        input(type="submit" class="btn btn-lg" value="Create")

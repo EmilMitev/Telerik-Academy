@@ -1,0 +1,38 @@
+extends ../shared/layout
+
+block main-content
+    h1 Welcome to your profile
+    .col.col-md-4
+        if avatar
+            img.img-rounded.img-responsive(src=avatar)
+        else
+            img.img-rounded.img-responsive(src="http://www.forumla.de/attachments/kreative-ecke/151339d1395599937-avatar-wettbewerb-abstimmung-tumblr_mwe88mlxe41sare1go1_1280.png")
+        form(method="post")
+            label(for="email") E-mail
+            input(id="email" class="form-control" type="email" name="email" value="#{email}")
+            br
+            label(for="username") Username
+            input(id="username" class="form-control" type="text" name="username" value="#{username}" disabled)
+            br
+            label(for="password") Password
+            input(id="password" class="form-control" type="password" name="password" placeholder="Password")
+            br
+            label(for="confirm-password") Confirm Password
+            input(id="confirm-password" class="form-control" type="password" name="confirmPassword" placeholder="Confirm password")
+            br
+            label(for="first-name") First Name
+            input(id="first-name" class="form-control" type="text" name="firstName" value="#{firstName}")
+            br
+            label(for="last-name") Last Name
+            input(id="last-name" class="form-control" type="text" name="lastName" value="#{lastName}")
+            br
+            label(for="avatar") Avatar
+            input(id="avatar" class="form-control" type="text" name="avatar" value="#{avatar}")
+            br
+            label(for="facebook-link") Facebook link
+            input(id="facebook-link" class="form-control" type="text" name="facebookLink" value="#{facebookLink}")
+            br
+            label(for="youtube-link") Youtube link
+            input(id="youtube-link" class="form-control" type="text" name="youtubeLink" value="#{youtubeLink}")
+            br
+            input(type="submit" class="btn btn-success" value="Update Information")

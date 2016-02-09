@@ -1,0 +1,8 @@
+extends ../shared/layout
+block main-content
+    h2.text-center Add video
+    form(method="post")
+        label(for="url") URL
+        input(id="url" class="form-control" type="text" name="url" placeholder="Youtube url")
+        br
+        input(type="submit" class="btn btn-lg" value="Add")

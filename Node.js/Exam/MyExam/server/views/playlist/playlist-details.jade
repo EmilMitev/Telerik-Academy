@@ -1,0 +1,40 @@
+extends ../shared/layout
+block main-content
+    .jumbotron
+        .panel.panel-default
+            .panel-heading
+                h2 Playlist details
+            .panel-body
+                h3 Title: #{data.title}
+                h4 Description: #{data.description}
+                p Category: #{data.category}
+                span Make by #{data.creator} on #{data.creationDate}
+                br
+                br
+                h4 Videos:
+                if (data.videoURLs.length)
+                    ul
+                        each url in data.videoURLs
+                            li
+                                a(href="#{url}") #{url}
+                if(!data.videoURLs.length)
+                    span
+                        strong This playlist no videos yet
+                br
+                br
+                h4 Comments:
+                if (data.comments.length)
+                    ul
+                        each comment in data.comments
+                            li
+                                #{comment.creator} say: #{comment.text}
+                if(!data.comments.length)
+                    span
+                        strong This playlist no comments yet
+                br
+                br
+                if (currentUser)
+                    a.btn.btn-lf.btn-primary(href="/playlist/video/add/#{data._id}" ) Add new video
+                    a.btn.btn-lf.btn-primary(href="/playlist/comment/add/#{data._id}" ) Add new comment
+                    if(currentUser.username == data.creator)
+                        a.btn.btn-lf.btn-primary(href="/playlist/contribute/add/#{data._id}" ) Add new contribute

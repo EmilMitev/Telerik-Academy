@@ -1,0 +1,8 @@
+extends ../shared/layout
+block main-content
+    h2.text-center Add comment
+    form(method="post")
+        label(for="text") Text
+        input(id="text" class="form-control" type="text" name="text" placeholder="Comment")
+        br
+        input(type="submit" class="btn btn-lg" value="Add")

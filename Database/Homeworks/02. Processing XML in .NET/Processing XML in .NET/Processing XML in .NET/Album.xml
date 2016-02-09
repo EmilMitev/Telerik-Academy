@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<albums>
+	<album>
+		<name>Dark Horse</name>
+		<authors>Nickelback</authors>
+	</album>
+	<album>
+		<name>The Way of the Fist</name>
+		<authors>Five Finger Death Punch</authors>
+	</album>
+	<album>
+		<name>Here and Now</name>
+		<authors>Nickelback</authors>
+	</album>
+</albums>

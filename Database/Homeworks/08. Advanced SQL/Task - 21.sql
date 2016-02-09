@@ -1,0 +1,7 @@
+USE TelerikAcademy
+
+DELETE FROM Users
+WHERE Username LIKE '%2';
+
+DELETE FROM Groups
+WHERE GroupId BETWEEN 7 AND 11

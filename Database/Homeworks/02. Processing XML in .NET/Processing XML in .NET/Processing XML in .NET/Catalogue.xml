@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<albums>
+  <album>
+    <name>Dark Horse</name>
+    <artist>Nickelback</artist>
+    <year>2008</year>
+    <producer>Robert John "Mutt" Lange</producer>
+    <price>9,49</price>
+    <songs>
+      <song>
+        <title>Something in Your Mouth</title>
+        <duration>3:38</duration>
+      </song>
+      <song>
+        <title>Burn It to the Ground</title>
+        <duration>3:28</duration>
+      </song>
+      <song>
+        <title>Gotta Be Somebody</title>
+        <duration>4:13</duration>
+      </song>
+      <song>
+        <title>I'd Come for You</title>
+        <duration>4:22</duration>
+      </song>
+      <song>
+        <title>Next Go Round</title>
+        <duration>3:43</duration>
+      </song>
+      <song>
+        <title>Just to Get High</title>
+        <duration>4:02</duration>
+      </song>
+      <song>
+        <title>Never Gonna Be Alone</title>
+        <duration>3:47</duration>
+      </song>
+      <song>
+        <title>Shakin' Hands</title>
+        <duration>3:39</duration>
+      </song>
+      <song>
+        <title>S.E.X.</title>
+        <duration>3:52</duration>
+      </song>
+      <song>
+        <title>If Today Was Your Last Day</title>
+        <duration>4:07</duration>
+      </song>
+      <song>
+        <title>This Afternoon</title>
+        <duration>4:34</duration>
+      </song>
+    </songs>
+  </album>
+  <album>
+    <name>The Way of the Fist</name>
+    <artist>Five Finger Death Punch</artist>
+    <year>2007</year>
+    <producer>Zoltan Bathory, Jeremy Spencer</producer>
+    <price>22,88</price>
+    <songs>
+      <song>
+        <title>Ashes</title>
+        <duration>3:44</duration>
+      </song>
+      <song>
+        <title>The Way of the Fist</title>
+        <duration>3:58</duration>
+      </song>
+      <song>
+        <title>Salvation</title>
+        <duration>3:20</duration>
+      </song>
+      <song>
+        <title>The Bleeding</title>
+        <duration>4:28</duration>
+      </song>
+      <song>
+        <title>A Place to Die</title>
+        <duration>3:40</duration>
+      </song>
+      <song>
+        <title>The Devil's Own</title>
+        <duration>4:12</duration>
+      </song>
+      <song>
+        <title>White Knuckles</title>
+        <duration>4:10</duration>
+      </song>
+      <song>
+        <title>Can't Heal You</title>
+        <duration>3:03</duration>
+      </song>
+      <song>
+        <title>Death Before Dishonor</title>
+        <duration>3:54</duration>
+      </song>
+      <song>
+        <title>Meet the Monster</title>
+        <duration>4:22</duration>
+      </song>
+    </songs>
+  </album>
+  <album>
+    <name>Here and Now</name>
+    <artist>Nickelback</artist>
+    <year>2011</year>
+    <producer>Nickelback, Joey Moi, Brian Howes</producer>
+    <price>11,49</price>
+    <songs>
+      <song>
+        <title>This Means War</title>
+        <duration>3:20</duration>
+      </song>
+      <song>
+        <title>Bottoms Up</title>
+        <duration>3:37</duration>
+      </song>
+      <song>
+        <title>When We Stand Together</title>
+        <duration>3:10</duration>
+      </song>
+      <song>
+        <title>Midnight Queen</title>
+        <duration>3:14</duration>
+      </song>
+      <song>
+        <title>Gotta Get Me Some</title>
+        <duration>3:41</duration>
+      </song>
+      <song>
+        <title>Lullaby</title>
+        <duration>3:48</duration>
+      </song>
+      <song>
+        <title>Kiss It Goodbye</title>
+        <duration>3:35</duration>
+      </song>
+      <song>
+        <title>Trying Not to Love You</title>
+        <duration>4:11</duration>
+      </song>
+      <song>
+        <title>Holding on to Heaven</title>
+        <duration>3:51</duration>
+      </song>
+      <song>
+        <title>Everything I Wanna Do</title>
+        <duration>3:27</duration>
+      </song>
+      <song>
+        <title>Don't Ever Let It End</title>
+        <duration>3:49</duration>
+      </song>
+    </songs>
+  </album>
+</albums>

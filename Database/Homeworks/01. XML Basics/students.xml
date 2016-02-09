@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="students.xslt" ?>
+<students xmlns:students = "urn:students-academy">
+  <student>
+    <name>Bate Sa</name>
+    <sex>Male</sex>
+    <birthDate>01.02.2000</birthDate>
+    <phone>0888998877</phone>
+    <email>bate_sa@bate_sa.sa</email>
+    <course>DB</course>
+    <specialty>DB - Ninja</specialty>
+    <facultyNumber>121212121</facultyNumber>
+    <exams>
+      <exam>
+        <examName>C# - part 1</examName>
+        <tutor>John Doe</tutor>
+        <score>100</score>
+      </exam>
+      <exam>
+        <examName>C# - part 2</examName>
+        <tutor>Jane Pow</tutor>
+        <score>55</score>
+      </exam>
+    </exams>
+  </student>
+  <student>
+    <name>Dr. T</name>
+    <sex>Female</sex>
+    <birthDate>01.02.1995</birthDate>
+    <phone>0888665544</phone>
+    <email>Dr._T@blq.blq</email>
+    <course>DB</course>
+    <specialty>DB - Super Ninja</specialty>
+    <facultyNumber>121212121</facultyNumber>
+    <exams>
+      <exam>
+        <examName>C# - OOP</examName>
+        <tutor>John Doe</tutor>
+        <score>200</score>
+      </exam>
+      <exam>
+        <examName>JS - OOP</examName>
+        <tutor>Jane Pow</tutor>
+        <score>100</score>
+      </exam>
+    </exams>
+  </student>
+</students>

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Persons>
+	<Person>
+		<name>John Doe</name>
+		<adress>bul John Doe 8</adress>
+		<telephone>123456789</telephone>
+	</Person>
+	<Person>
+		<name>Jane Doe</name>
+		<adress>bul Jane Doe 9</adress>
+		<telephone>123456789</telephone>
+	</Person>
+</Persons>

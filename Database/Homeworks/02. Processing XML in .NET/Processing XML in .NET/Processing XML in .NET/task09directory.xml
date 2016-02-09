@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <dir d2p1:name="" xmlns:d2p1="Database">
+    <dir d3p1:name="" xmlns:d3p1="01. XML Basics">
+      <dir d4p1:name="" xmlns:d4p1="Demo">
+        <file d5p1:name="" xmlns:d5p1="items.xml" />
+        <file d5p1:name="" xmlns:d5p1="library-invalid.xml" />
+        <file d5p1:name="" xmlns:d5p1="library-valid.xml" />
+        <file d5p1:name="" xmlns:d5p1="library-xml2html.xsl" />
+        <file d5p1:name="" xmlns:d5p1="library.xml" />
+        <file d5p1:name="" xmlns:d5p1="library.xsd" />
+        <file d5p1:name="" xmlns:d5p1="order.xsd" />
+      </dir>
+      <dir d4p1:name="" xmlns:d4p1="Homework">
+        <file d5p1:name="" xmlns:d5p1="README.md" />
+        <file d5p1:name="" xmlns:d5p1="students.xml" />
+        <file d5p1:name="" xmlns:d5p1="students.xsd" />
+        <file d5p1:name="" xmlns:d5p1="students.xslt" />
+        <file d5p1:name="" xmlns:d5p1="Task1.txt" />
+      </dir>
+    </dir>
+    <dir d3p1:name="" xmlns:d3p1="02. Processing XML in .NET">
+      <dir d4p1:name="" xmlns:d4p1="Demo">
+        <file d5p1:name="" xmlns:d5p1="XML-Parsing-Demos.sln" />
+        <dir d5p1:name="" xmlns:d5p1="CreatingDocumentLINQToXML">
+          <file d6p1:name="" xmlns:d6p1="6. CreatingDocs-LINQ-to-XML.csproj" />
+          <file d6p1:name="" xmlns:d6p1="books.xml" />
+          <file d6p1:name="" xmlns:d6p1="LINQToXML.cs" />
+        </dir>
+        <dir d5p1:name="" xmlns:d5p1="DOMParser">
+          <file d6p1:name="" xmlns:d6p1="1. DOM-Parser.csproj" />
+          <file d6p1:name="" xmlns:d6p1="DOMParser.cs" />
+          <file d6p1:name="" xmlns:d6p1="library.xml" />
+        </dir>
+        <dir d5p1:name="" xmlns:d5p1="LINQNamespaces">
+          <file d6p1:name="" xmlns:d6p1="8. LINQ-Namespaces.csproj" />
+          <file d6p1:name="" xmlns:d6p1="books.xml" />
+          <file d6p1:name="" xmlns:d6p1="LINQtoXMLNamespaces.cs" />
+        </dir>
+        <dir d5p1:name="" xmlns:d5p1="Modifing-XML-With-DOM">
+          <file d6p1:name="" xmlns:d6p1="2. Modifing-XML-With-DOM.csproj" />
+          <file d6p1:name="" xmlns:d6p1="items.xml" />
+          <file d6p1:name="" xmlns:d6p1="itemsNew.xml" />
+          <file d6p1:name="" xmlns:d6p1="ModifyXMLwithDOM.cs" />
+        </dir>
+        <dir d5p1:name="" xmlns:d5p1="SearchingWithLINQ">
+          <file d6p1:name="" xmlns:d6p1="9. Searching-with-LINQ.csproj" />
+          <file d6p1:name="" xmlns:d6p1="books.xml" />
+          <file d6p1:name="" xmlns:d6p1="SearchingWithLINQ.cs" />
+        </dir>
+        <dir d5p1:name="" xmlns:d5p1="XMLReader">
+          <file d6p1:name="" xmlns:d6p1="3. XmlReader-Demo.csproj" />
+          <file d6p1:name="" xmlns:d6p1="library.xml" />
+          <file d6p1:name="" xmlns:d6p1="XmlReaderDemo.cs" />
+        </dir>
+        <dir d5p1:name="" xmlns:d5p1="XMLWriter">
+          <file d6p1:name="" xmlns:d6p1="4. XmlWriter-Demo.csproj" />
+          <file d6p1:name="" xmlns:d6p1="books.xml" />
+          <file d6p1:name="" xmlns:d6p1="XmlWriterDemo.cs" />
+        </dir>
+        <dir d5p1:name="" xmlns:d5p1="XPathDemo">
+          <file d6p1:name="" xmlns:d6p1="5. XPath-Demo.csproj" />
+          <file d6p1:name="" xmlns:d6p1="items.xml" />
+          <file d6p1:name="" xmlns:d6p1="XPathDemo.cs" />
+        </dir>
+        <dir d5p1:name="" xmlns:d5p1="XPathNavigatorDemo">
+          <file d6p1:name="" xmlns:d6p1="06. XPathNavigator-Demo.csproj" />
+          <file d6p1:name="" xmlns:d6p1="items.xml" />
+          <file d6p1:name="" xmlns:d6p1="itemsNew.xml" />
+          <file d6p1:name="" xmlns:d6p1="Program.cs" />
+        </dir>
+        <dir d5p1:name="" xmlns:d5p1="XSL Transform">
+          <file d6p1:name="" xmlns:d6p1="9. XSL-Transformations.csproj" />
+          <file d6p1:name="" xmlns:d6p1="catalog.html" />
+          <file d6p1:name="" xmlns:d6p1="catalog.xml" />
+          <file d6p1:name="" xmlns:d6p1="catalog.xsl" />
+          <file d6p1:name="" xmlns:d6p1="XSLTransform.cs" />
+        </dir>
+      </dir>
+      <dir d4p1:name="" xmlns:d4p1="Homework">
+        <file d5p1:name="" xmlns:d5p1="README.md" />
+        <dir d5p1:name="" xmlns:d5p1="Processing XML in .NET">
+          <file d6p1:name="" xmlns:d6p1="Processing XML in .NET.sln" />
+          <dir d6p1:name="" xmlns:d6p1=".vs">
+            <dir d5p1:name="">
+              <dir d8p1:name="" xmlns:d8p1="v14">
+                <file d9p1:name="" xmlns:d9p1=".suo" />
+              </dir>
+            </dir>
+          </dir>
+          <dir d5p1:name="">
+            <file d7p1:name="" xmlns:d7p1="Album.xml" />
+            <file d7p1:name="" xmlns:d7p1="App.config" />
+            <file d7p1:name="" xmlns:d7p1="Catalogue.html" />
+            <file d7p1:name="" xmlns:d7p1="Catalogue.xml" />
+            <file d7p1:name="" xmlns:d7p1="Catalogue.xsd" />
+            <file d7p1:name="" xmlns:d7p1="Catalogue.xslt" />
+            <file d7p1:name="" xmlns:d7p1="EntryPoint.cs" />
+            <file d7p1:name="" xmlns:d7p1="fromText.txt" />
+            <file d7p1:name="" xmlns:d7p1="Processing XML in .NET.csproj" />
+            <file d7p1:name="" xmlns:d7p1="Processing XML in .NET.csproj.user" />
+            <file d7p1:name="" xmlns:d7p1="Settings.StyleCop" />
+            <file d7p1:name="" xmlns:d7p1="StyleCop.Cache" />
+            <file d7p1:name="" xmlns:d7p1="Task02.cs" />
+            <file d7p1:name="" xmlns:d7p1="Task03.cs" />
+            <file d7p1:name="" xmlns:d7p1="Task04.cs" />
+            <file d7p1:name="" xmlns:d7p1="Task05.cs" />
+            <file d7p1:name="" xmlns:d7p1="Task06.cs" />
+            <file d7p1:name="" xmlns:d7p1="Task07.cs" />
+            <file d7p1:name="" xmlns:d7p1="Task08.cs" />
+            <file d7p1:name="" xmlns:d7p1="Task09.cs" />
+            <file d7p1:name="" xmlns:d7p1="task09directory.xml" />
+            <file d7p1:name="" xmlns:d7p1="Task10.cs" />
+            <file d7p1:name="" xmlns:d7p1="task10directory.xml" />
+            <file d7p1:name="" xmlns:d7p1="Task11.cs" />
+            <file d7p1:name="" xmlns:d7p1="Task12.cs" />
+            <file d7p1:name="" xmlns:d7p1="Task13-14.cs" />
+            <file d7p1:name="" xmlns:d7p1="toXml.xml" />
+            <dir d7p1:name="" xmlns:d7p1="bin">
+              <dir d8p1:name="" xmlns:d8p1="Debug">
+                <file d9p1:name="" xmlns:d9p1="Processing_XML_in.NET.exe" />
+                <file d9p1:name="" xmlns:d9p1="Processing_XML_in.NET.exe.config" />
+                <file d9p1:name="" xmlns:d9p1="Processing_XML_in.NET.pdb" />
+                <file d9p1:name="" xmlns:d9p1="Processing_XML_in.NET.vshost.exe" />
+                <file d9p1:name="" xmlns:d9p1="Processing_XML_in.NET.vshost.exe.config" />
+                <file d9p1:name="" xmlns:d9p1="Processing_XML_in.NET.vshost.exe.manifest" />
+              </dir>
+            </dir>
+            <dir d7p1:name="" xmlns:d7p1="obj">
+              <dir d8p1:name="" xmlns:d8p1="Debug">
+                <file d9p1:name="" xmlns:d9p1="DesignTimeResolveAssemblyReferencesInput.cache" />
+                <file d9p1:name="" xmlns:d9p1="Processing XML in .NET.csproj.FileListAbsolute.txt" />
+                <file d9p1:name="" xmlns:d9p1="Processing XML in .NET.csprojResolveAssemblyReference.cache" />
+                <file d9p1:name="" xmlns:d9p1="Processing_XML_in.NET.exe" />
+                <file d9p1:name="" xmlns:d9p1="Processing_XML_in.NET.pdb" />
+                <file d9p1:name="" xmlns:d9p1="TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+                <file d9p1:name="" xmlns:d9p1="TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+                <file d9p1:name="" xmlns:d9p1="TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+              </dir>
+            </dir>
+            <dir d7p1:name="" xmlns:d7p1="Properties">
+              <file d8p1:name="" xmlns:d8p1="AssemblyInfo.cs" />
+            </dir>
+          </dir>
+        </dir>
+      </dir>
+    </dir>
+  </dir>
+</root>

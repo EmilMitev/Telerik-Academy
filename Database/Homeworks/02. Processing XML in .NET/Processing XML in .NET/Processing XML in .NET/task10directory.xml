@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <dir name="Database">
+    <dir name="01. XML Basics">
+      <dir name="Demo">
+        <file name="items.xml" />
+        <file name="library-invalid.xml" />
+        <file name="library-valid.xml" />
+        <file name="library-xml2html.xsl" />
+        <file name="library.xml" />
+        <file name="library.xsd" />
+        <file name="order.xsd" />
+      </dir>
+      <dir name="Homework">
+        <file name="README.md" />
+        <file name="students.xml" />
+        <file name="students.xsd" />
+        <file name="students.xslt" />
+        <file name="Task1.txt" />
+      </dir>
+    </dir>
+    <dir name="02. Processing XML in .NET">
+      <dir name="Demo">
+        <file name="XML-Parsing-Demos.sln" />
+        <dir name="CreatingDocumentLINQToXML">
+          <file name="6. CreatingDocs-LINQ-to-XML.csproj" />
+          <file name="books.xml" />
+          <file name="LINQToXML.cs" />
+        </dir>
+        <dir name="DOMParser">
+          <file name="1. DOM-Parser.csproj" />
+          <file name="DOMParser.cs" />
+          <file name="library.xml" />
+        </dir>
+        <dir name="LINQNamespaces">
+          <file name="8. LINQ-Namespaces.csproj" />
+          <file name="books.xml" />
+          <file name="LINQtoXMLNamespaces.cs" />
+        </dir>
+        <dir name="Modifing-XML-With-DOM">
+          <file name="2. Modifing-XML-With-DOM.csproj" />
+          <file name="items.xml" />
+          <file name="itemsNew.xml" />
+          <file name="ModifyXMLwithDOM.cs" />
+        </dir>
+        <dir name="SearchingWithLINQ">
+          <file name="9. Searching-with-LINQ.csproj" />
+          <file name="books.xml" />
+          <file name="SearchingWithLINQ.cs" />
+        </dir>
+        <dir name="XMLReader">
+          <file name="3. XmlReader-Demo.csproj" />
+          <file name="library.xml" />
+          <file name="XmlReaderDemo.cs" />
+        </dir>
+        <dir name="XMLWriter">
+          <file name="4. XmlWriter-Demo.csproj" />
+          <file name="books.xml" />
+          <file name="XmlWriterDemo.cs" />
+        </dir>
+        <dir name="XPathDemo">
+          <file name="5. XPath-Demo.csproj" />
+          <file name="items.xml" />
+          <file name="XPathDemo.cs" />
+        </dir>
+        <dir name="XPathNavigatorDemo">
+          <file name="06. XPathNavigator-Demo.csproj" />
+          <file name="items.xml" />
+          <file name="itemsNew.xml" />
+          <file name="Program.cs" />
+        </dir>
+        <dir name="XSL Transform">
+          <file name="9. XSL-Transformations.csproj" />
+          <file name="catalog.html" />
+          <file name="catalog.xml" />
+          <file name="catalog.xsl" />
+          <file name="XSLTransform.cs" />
+        </dir>
+      </dir>
+      <dir name="Homework">
+        <file name="README.md" />
+        <dir name="Processing XML in .NET">
+          <file name="Processing XML in .NET.sln" />
+          <dir name=".vs">
+            <dir name="Processing XML in .NET">
+              <dir name="v14">
+                <file name=".suo" />
+              </dir>
+            </dir>
+          </dir>
+          <dir name="Processing XML in .NET">
+            <file name="Album.xml" />
+            <file name="App.config" />
+            <file name="Catalogue.html" />
+            <file name="Catalogue.xml" />
+            <file name="Catalogue.xsd" />
+            <file name="Catalogue.xslt" />
+            <file name="EntryPoint.cs" />
+            <file name="fromText.txt" />
+            <file name="Processing XML in .NET.csproj" />
+            <file name="Processing XML in .NET.csproj.user" />
+            <file name="Settings.StyleCop" />
+            <file name="StyleCop.Cache" />
+            <file name="Task02.cs" />
+            <file name="Task03.cs" />
+            <file name="Task04.cs" />
+            <file name="Task05.cs" />
+            <file name="Task06.cs" />
+            <file name="Task07.cs" />
+            <file name="Task08.cs" />
+            <file name="Task09.cs" />
+            <file name="task09directory.xml" />
+            <file name="Task10.cs" />
+            <file name="task10directory.xml" />
+            <file name="Task11.cs" />
+            <file name="Task12.cs" />
+            <file name="Task13-14.cs" />
+            <file name="toXml.xml" />
+            <dir name="bin">
+              <dir name="Debug">
+                <file name="Processing_XML_in.NET.exe" />
+                <file name="Processing_XML_in.NET.exe.config" />
+                <file name="Processing_XML_in.NET.pdb" />
+                <file name="Processing_XML_in.NET.vshost.exe" />
+                <file name="Processing_XML_in.NET.vshost.exe.config" />
+                <file name="Processing_XML_in.NET.vshost.exe.manifest" />
+              </dir>
+              <dir name="Release" />
+            </dir>
+            <dir name="obj">
+              <dir name="Debug">
+                <file name="DesignTimeResolveAssemblyReferencesInput.cache" />
+                <file name="Processing XML in .NET.csproj.FileListAbsolute.txt" />
+                <file name="Processing XML in .NET.csprojResolveAssemblyReference.cache" />
+                <file name="Processing_XML_in.NET.exe" />
+                <file name="Processing_XML_in.NET.pdb" />
+                <file name="TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+                <file name="TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+                <file name="TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+                <dir name="TempPE" />
+              </dir>
+            </dir>
+            <dir name="Properties">
+              <file name="AssemblyInfo.cs" />
+            </dir>
+          </dir>
+        </dir>
+      </dir>
+    </dir>
+  </dir>
+</root>

@@ -1,0 +1,7 @@
+USE TelerikAcademy
+
+CREATE VIEW RecentlyLogged AS
+SELECT Username, LoginTime
+FROM Users
+WHERE CONVERT(VARCHAR(10), LoginTime, 102) <= CONVERT(VARCHAR(10) ,GETDATE(), 102)
+GO

@@ -1,0 +1,7 @@
+USE TelerikAcademy
+
+CREATE TABLE Groups (
+	GroupId INT IDENTITY,
+	Name NVARCHAR(50) UNIQUE NOT NULL,
+	CONSTRAINT PK_Groups PRIMARY KEY(GroupId)
+)

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1.Cars", "1.Cars\1.Cars.csproj", "{D8BF4C33-7404-4A86-BC54-9FF9A095506A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2.Employees", "2.Employees\2.Employees.csproj", "{EB8D37AF-C356-430F-BB30-76E5793DCEC5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D8BF4C33-7404-4A86-BC54-9FF9A095506A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8BF4C33-7404-4A86-BC54-9FF9A095506A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8BF4C33-7404-4A86-BC54-9FF9A095506A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8BF4C33-7404-4A86-BC54-9FF9A095506A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB8D37AF-C356-430F-BB30-76E5793DCEC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB8D37AF-C356-430F-BB30-76E5793DCEC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB8D37AF-C356-430F-BB30-76E5793DCEC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB8D37AF-C356-430F-BB30-76E5793DCEC5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

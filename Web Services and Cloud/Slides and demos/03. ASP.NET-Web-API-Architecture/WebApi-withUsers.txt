@@ -1,0 +1,320 @@
+1. Open Visual Studio 2015 -> Add -> New Project -> Blank Solution
+
+2. Right click on solution -> Add -> New solution folder (Server)
+   Right click on solution -> Add -> New solution folder (Data)
+
+3. Right click on Server folder -> Add -> New project -> ASP.NET Web application (on Location add "/Server") -> Ok -> Web API -> Ok
+
+4. Delete some files and folders(because MVC is not necessary):
+	favicon.ico
+	Project_Readme.html
+	folders:
+		- View
+		- Scripts
+		- Fonts
+		- Areas
+		- App_Data
+		- Content
+	In App_Start
+		- BundleConfig.cs
+		- FilterConfig.cs
+		- RouteConfig.cs
+	In Controllers
+		- HomeController.cs
+		- ValuesController.cs
+	In WebApplication.cs
+		- AreaRegistration...
+		- FilterConfig...
+		- RouteConfig...
+		- BundleConfig...
+
+5. About users
+	In AccountController.cs is all about user information -> register, you can get more information from user
+	[Autorize] or [AllowAnonymous]
+	- REGISTER
+		in IdentityConfic.cs -> rules about validation on username and password
+		on api/Account/Register POST
+		Headers: Content-type -> application/json
+		raw
+		{
+			"email" : "some@gmail.com"
+			"password" : "123456"
+			"confirmPassword" : "123456"
+		}
+	- GET TOKEN
+		In Startup.Auth.cs -> you can view from where you can take token
+		on "/Token" POST 
+		x-www-form-urlencoded
+		username -> some@gmail.com
+		password -> 123456
+		grand_type -> password
+	-LOGIN
+		on api/values(example!) GET or POST or PUT.....
+		Headers: Autorization -> Bearer <token>
+
+
+6. Config database-> don't forget all references
+	In Web.config
+		- change connection string 
+			<connectionStrings>
+				<add name="DefaultConnection" connectionString="Data Source=.; Initial Catalog=PetStoreAPI; Integrated Security=true" providerName="System.Data.SqlClient" />
+			</connectionStrings>
+	- Right click on Data folder -> Add -> New project -> Class Library(Models) (on Location add "/Data") -> Ok
+	- Right click on Data folder -> Add -> New project -> Class Library(Data) (on Location add "/Data") -> Ok
+
+	- Manage nuget -> Microsoft.AspNet.Identity.EntityFramework (in data and models!)
+	- Server -> api or service -> add reference to models and data
+
+	- From IdentityModels.cs move Public class ApplicationUser to Models project -> add -> class
+	- From IdentityModels.cs move public class ...DbContext to Data project -> add -> class
+	- Delete IdentityModels.cs
+		fix all errors!
+	- public virtual IDbSet<> -> put them in *DbContext
+
+7. In Server -> Service or api project -> Models
+	- Separate AccountBindingModels.cs
+	- Separate AccountViewModels.cs
+	FIX ALL ERRORS!
+8. Enable migration on data project
+9. In App_Start -> add -> class (DatabaseConfig) -> Ok
+	namespace *.Api!
+	public static class DatabaseConfig
+	{
+		publiv static void Initialize()
+		{
+			Database.SetInitializer(new MigrateDatabaseToLatestVersion<someDbContext, Configuration>());
+			someDbContext.Create().Database.Initialize(true);
+		}
+	}
+
+10. In Global.asax
+	protected void Application_Start()
+	{
+		DatabaseConfig.Initialize();
+		Global.....
+	}
+Configuration END!-------------------------------------------------------------------------Nasty work DONE!---Let's give him some code------
+
+this.User.Identity.Name -> currently logged user
+
+Return object from request
+
+	public class SoftwareprojectDetailsResponseModel
+	{
+		public static Expression<Func<SotwareProject, SoftwareprojectDetailsResponseModel>> FromModel
+		{
+			get
+			{
+				return pr => new SoftwareProjectDetailsResponseModel
+				{
+					Id = pr.Id,
+					Name = pr.Name,
+					CreatedOn = pr.CreatedOn,
+					TotalUsers = pr.Users.Count()
+				}
+			}
+		}
+
+		public int Id{get; set;}
+		public string Name{get; set;}
+		public DateTime CreatedOn{get; set;}
+	}
+
+	public IHttpActionResult Get()
+	{
+		var result = this.db
+						.SoftwareProjects
+						.Select(SoftwareprojectDetailsResponseModel.FromModel)
+						.
+						.
+						.
+		return this.Ok(result);
+	}
+
+Repository Pattern
+	In data project 
+
+	new interface
+	namespace Showcase.Data.Common.Repositories
+	{
+	    using System;
+	    using System.Linq;
+	    using System.Threading.Tasks;
+
+	    public interface IRepository<T> : IDisposable where T : class
+	    {
+	        IQueryable<T> All();
+
+	        T GetById(object id);
+
+	        void Add(T entity);
+
+	        void Update(T entity);
+
+	        void Delete(T entity);
+
+	        void Delete(object id);
+
+	        T Attach(T entity);
+
+	        void Detach(T entity);
+
+	        int SaveChanges();
+	    }
+	}
+
+	new class
+	namespace Showcase.Data.Common.Repositories
+	{
+	    using System;
+	    using System.Data.Entity;
+	    using System.Linq;
+	    using System.Threading.Tasks;
+
+	    public class EfGenericRepository<T> : IRepository<T> where T : class
+	    {
+	        public EfGenericRepository(DbContext context)
+	        {
+	            if (context == null)
+	            {
+	                throw new ArgumentException("An instance of DbContext is required to use this repository.", "context");
+	            }
+
+	            this.Context = context;
+	            this.DbSet = this.Context.Set<T>();
+	        }
+
+	        protected IDbSet<T> DbSet { get; set; }
+
+	        protected DbContext Context { get; set; }
+
+	        public virtual IQueryable<T> All()
+	        {
+	            return this.DbSet.AsQueryable();
+	        }
+
+	        public virtual T GetById(object id)
+	        {
+	            return this.DbSet.Find(id);
+	        }
+
+	        public virtual void Add(T entity)
+	        {
+	            var entry = this.Context.Entry(entity);
+	            if (entry.State != EntityState.Detached)
+	            {
+	                entry.State = EntityState.Added;
+	            }
+	            else
+	            {
+	                this.DbSet.Add(entity);
+	            }
+	        }
+
+	        public virtual void Update(T entity)
+	        {
+	            var entry = this.Context.Entry(entity);
+	            if (entry.State == EntityState.Detached)
+	            {
+	                this.DbSet.Attach(entity);
+	            }
+
+	            entry.State = EntityState.Modified;
+	        }
+
+	        public virtual void Delete(T entity)
+	        {
+	            var entry = this.Context.Entry(entity);
+	            if (entry.State != EntityState.Deleted)
+	            {
+	                entry.State = EntityState.Deleted;
+	            }
+	            else
+	            {
+	                this.DbSet.Attach(entity);
+	                this.DbSet.Remove(entity);
+	            }
+	        }
+
+	        public virtual void Delete(object id)
+	        {
+	            var entity = this.GetById(id);
+
+	            if (entity != null)
+	            {
+	                this.Delete(entity);
+	            }
+	        }
+
+	        public virtual T Attach(T entity)
+	        {
+	            return this.Context.Set<T>().Attach(entity);
+	        }
+
+	        public virtual void Detach(T entity)
+	        {
+	            var entry = this.Context.Entry(entity);
+	            entry.State = EntityState.Detached;
+	        }
+
+	        public int SaveChanges()
+	        {
+	            return this.Context.SaveChanges();
+	        }
+
+	        public void Dispose()
+	        {
+	            this.Context.Dispose();
+	        }
+	    }
+	}
+
+
+public class ProjectsController : ApiController
+{
+	private readonly IRepository<SoftwareProject> projects;
+	private readonly IRepository<Users> users;
+
+	public ProjectsController()
+	{
+		this.data = new EfGenericRepository<SoftwareProject>(new *DbContext());
+		this.users = new EfGenericRepository<Users>(new *DbContext());
+	}
+
+	//Not this
+	public IHttpActionResult Get()
+	{
+		var result = this.db
+						.SoftwareProjects
+						.Select(SoftwareprojectDetailsResponseModel.FromModel)
+						.
+						.
+						.
+		return this.Ok(result);
+	}
+
+	//But this
+	public IHttpActionResult Get()
+	{
+		var result = this.projects
+						.All()
+						.Select(SoftwareprojectDetailsResponseModel.FromModel)
+						.ToList();
+		return this.Ok(result);
+	}
+}
+
+
+Services
+
+Right click on solution -> Add -> class library (*.Services.Data)
+
+add new interface 
+IProjectServices
+
+add new class 
+ProjectServices
+
+LOOK DEMO
+
+after that ninject and so on....

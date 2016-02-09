@@ -1,0 +1,340 @@
+1. Open visual studio 2015
+
+2. File -> New -> Project -> Blank solution [MusicStore]
+
+3. Right Click -> Add -> New Solution Folder [Data]
+
+4. Right Click -> Add -> New Solution Folder [Server] or [Api]
+
+5. Right Click -> Add -> New Solution Folder [Services]
+
+6. Right Click on Data -> Add -> New Project -> Class Library [MusicStore.Models]; Add to location \Data
+	6.1. Add references System.ComponentModel.DataAnnotations
+	6.2. Right Click on MusicStore.Models -> Add -> Class -> [Album]
+		6.2.1 Example:
+			namespace MusicStore.Models
+			{
+			    using System.Collections.Generic;
+			    using System.ComponentModel.DataAnnotations;
+
+			    public class Album
+			    {
+			        private ICollection<Artist> artists;
+			        private ICollection<Song> songs;
+
+			        public Album()
+			        {
+			            artists = new HashSet<Artist>();
+			            songs = new HashSet<Song>();
+			        }
+
+			        [Key]
+			        public int Id { get; set; }
+
+			        [Required]
+			        public string Title { get; set; }
+
+			        public int Year { get; set; }
+
+			        public string Producer { get; set; }
+
+			        public virtual ICollection<Artist> Artists
+			        {
+			            get { return this.artists; }
+			            set { this.artists = value; }
+			        }
+
+			        public virtual ICollection<Song> Songs
+			        {
+			            get { return this.songs; }
+			            set { this.songs = value; }
+			        }
+			    }
+			}
+	... You can Add more models. You can look demo for more Examples
+
+7. Right Click on Data -> Add -> New Project -> Class Library [MusicStore.Data]; Add to location \Data
+	7.1. Add references MusicStore.Models
+	7.2. Right click on MusicStore.Data -> NuGet packages -> Install EntityFramework
+	7.3. App.config -> connectionString 
+		<connectionStrings>
+    		<add name="MusicStoreDb" connectionString="Data Source=.;Initial Catalog=MusicStoreDB;Integrated Security=true" providerName="System.Data.SqlClient"/>
+  		</connectionStrings>
+  	7.4. Right click on MusicStore.Data -> Add -> Class [MusicStoreDbContext]
+  		7.4.1. Example
+	  		namespace MusicStore.Data
+			{
+			    using Models;
+			    using System.Data.Entity;
+
+			    public class MusicStoreDbContext : DbContext, IMusicStoreDbContext
+			    {
+			        public MusicStoreDbContext()
+			            : base("MusicStoreDb")
+			        {
+			        }
+
+			        public virtual IDbSet<Album> Albums { get; set; }
+
+			        public virtual IDbSet<Artist> Artists { get; set; }
+
+			        public virtual IDbSet<Song> Songs { get; set; }
+
+			        public new IDbSet<T> Set<T>() where T : class
+			        {
+			            return base.Set<T>();
+			        }
+
+			        public new void SaveChanges()
+			        {
+			            base.SaveChanges();
+			        }
+
+			        public static MusicStoreDbContext Create()
+			        {
+			            return new MusicStoreDbContext();
+			        }
+			    }
+			}
+	    7.4.2. Create IMusicStoreDbContext
+	    	namespace MusicStore.Data
+			{
+			    using System.Data.Entity;
+			    using MusicStore.Models;
+			    using System.Data.Entity.Infrastructure;
+
+			    public interface IMusicStoreDbContext
+			    {
+			        IDbSet<Album> Albums { get; set; }
+
+			        IDbSet<Artist> Artists { get; set; }
+
+			        IDbSet<Song> Songs { get; set; }
+
+			        DbEntityEntry<T> Entry<T>(T entity) where T : class;
+
+			        void SaveChanges();
+
+			        IDbSet<T> Set<T>() where T : class;
+			    }
+			}
+	7.5. ctrl + Q -> Package Manager Console -> Default project -> MusicStore.Data
+		 enable-migrations
+
+	7.6. Migration -> Configuration from internal to public 
+	    namespace MusicStore.Data.Migrations
+		{
+		    using System.Data.Entity.Migrations;
+
+		    public sealed class Configuration : DbMigrationsConfiguration<MusicStoreDbContext>
+		    {
+		        public Configuration()
+		        {
+		            this.AutomaticMigrationsEnabled = true;
+		            this.AutomaticMigrationDataLossAllowed = false;
+		        }
+		    }
+		}
+
+  	7.7. Right click on MusicStore.Data -> Add -> New Folder [Repositories]
+  		7.7.1. Right click on Repositories -> Add -> Class [GenericRepository]
+  			namespace MusicStore.Data.Repositories
+			{
+			    using System;
+			    using System.Data.Entity;
+			    using System.Data.Entity.Infrastructure;
+			    using System.Linq;
+			    using System.Linq.Expressions;
+			    using MusicStore.Data;
+
+			    public class GenericRepository<T> : IGenericRepository<T> where T : class
+			    {
+			        private IMusicStoreDbContext context;
+			        private IDbSet<T> set;
+
+			        public GenericRepository(IMusicStoreDbContext context)
+			        {
+			            this.context = context;
+			            this.set = context.Set<T>();
+			        }
+
+			        public IQueryable<T> All() { return this.set.AsQueryable(); }
+
+			        public IQueryable<T> SearchFor(Expression<Func<T, bool>> conditions) { return this.All().Where(conditions); }
+
+			        public void Add(T entity)
+			        {
+			            var entry = AttachIfDetached(entity);
+			            entry.State = EntityState.Added;
+			        }
+
+			        public void Update(T entity)
+			        {
+			            var entry = AttachIfDetached(entity);
+			            entry.State = EntityState.Modified;
+			        }
+
+			        public void Delete(T entity)
+			        {
+			            var entry = AttachIfDetached(entity);
+			            entry.State = EntityState.Deleted;
+			        }
+
+			        public void Detach(T entity)
+			        {
+			            var entry = this.context.Entry(entity);
+			            entry.State = EntityState.Detached;
+			        }
+
+			        private DbEntityEntry AttachIfDetached(T entity)
+			        {
+			            var entry = this.context.Entry(entity);
+			            if (entry.State == EntityState.Detached)
+			            {
+			                this.set.Attach(entity);
+			            }
+
+			            return entry;
+			        }
+
+			        public void SaveChanges() { this.context.SaveChanges(); }
+			    }
+			}
+
+  		7.7.2. Create IGenericRepository
+  			namespace MusicStore.Data.Repositories
+			{
+			    using System;
+			    using System.Linq;
+			    using System.Linq.Expressions;
+
+			    public interface IGenericRepository<T> where T : class
+			    {
+			        IQueryable<T> All();
+
+			        IQueryable<T> SearchFor(Expression<Func<T, bool>> conditions);
+
+			        void Add(T entity);
+
+			        void Update(T entity);
+
+			        void Delete(T entity);
+
+			        void Detach(T entity);
+
+			        void SaveChanges();
+			    }
+			}
+
+--------------------------- to here database code first-------------------
+8. Right click on Server -> Add -> New project -> Wcf service application [MusicStore.Api](in location add '\Server')
+	-> add reference to models and data
+9. Right click on MusicStore.Api -> Add -> Class [BaseService]
+	-> BaseService.cs
+		namespace MusicStore.Api
+		{
+		    using MusicStore.Data;
+		    using Data.Repositories;
+		    using MusicStore.Models;
+
+		    public abstract class BaseService
+		    {
+		        protected BaseService()
+		        {
+		            var db = new MusicStoreDbContext();
+		            this.Artists = new GenericRepository<Artist>(db);
+		        }
+
+		        protected IGenericRepository<Artist> Artists { get; private set; }
+		    }
+		}
+10. Right click on MusicStore.Api -> Add -> New item -> wcf service [ArtistService]
+	-> IArtistService.cs
+		namespace MusicStore.Api
+		{
+		    using MusicStore.Api.Models;
+		    using System.Collections.Generic;
+		    using System.ServiceModel;
+		    using System.ServiceModel.Web;
+
+		    [ServiceContract]
+		    public interface IArtistService
+		    {
+		        [OperationContract]
+		        [WebInvoke(Method = "GET", UriTemplate = "/api/artists", ResponseFormat = WebMessageFormat.Json)]
+		        IEnumerable<ArtistsDetailsResponseModel> GetAll();
+
+		        [OperationContract]
+		        [WebInvoke(Method = "GET", UriTemplate = "/api/artists/{id}", ResponseFormat = WebMessageFormat.Json)]
+		        ArtistsDetailsResponseModel GetById(string id);
+		    }
+		}
+
+	-> ArtistService.svc.cs
+		namespace MusicStore.Api
+		{
+		    using System.Linq;
+		    using MusicStore.Api.Models;
+		    using System.ServiceModel;
+		    using System.Collections.Generic;
+
+		    public class ArtistService : BaseService, IArtistService
+		    {
+
+		        public IEnumerable<ArtistsDetailsResponseModel> GetAll()
+		        {
+		            var result = this.Artists
+		                    .All()
+		                    .OrderBy(s => s.Id)
+		                    .Select(ArtistsDetailsResponseModel.FromModel)
+		                    .ToList();
+
+		            return result.AsQueryable();
+		        }
+
+		        public ArtistsDetailsResponseModel GetById(string id)
+		        {
+		            var result = this.Artists
+		                  .All()
+		                  .Where(s => s.Id == int.Parse(id))
+		                  .Select(ArtistsDetailsResponseModel.FromModel)
+		                  .FirstOrDefault();
+
+		            return result;
+		        }
+		    }
+		}
+
+11. Go to web config
+	Delete all between <system.serviceModel> and </system.serviceModel>
+	and do this
+	  <system.serviceModel>
+	    <serviceHostingEnvironment aspNetCompatibilityEnabled="true" multipleSiteBindingsEnabled="true" />
+	    <behaviors>
+	      <endpointBehaviors>
+	        <behavior name="restfulEndpointBehavior">
+	          <webHttp />
+	        </behavior>
+	      </endpointBehaviors>
+	      <serviceBehaviors>
+	        <behavior name="restfulServiceBehavior">
+	          <serviceMetadata httpGetEnabled="true" />
+	          <serviceDebug includeExceptionDetailInFaults="true" />
+	        </behavior>
+	        <behavior name="">
+	          <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true" />
+	          <serviceDebug includeExceptionDetailInFaults="false" />
+	        </behavior>
+	      </serviceBehaviors>
+	    </behaviors>
+	    <services>
+	      <service name="MusicStore.Api.ArtistService" behaviorConfiguration="restfulServiceBehavior">
+	        <endpoint address="" behaviorConfiguration="restfulEndpointBehavior" contract="MusicStore.Api.IArtistService" binding="webHttpBinding"></endpoint>
+	        <host>
+	          <baseAddresses>
+	            <add baseAddress="http://localhost/questions" />
+	          </baseAddresses>
+	        </host>
+	      </service>
+	    </services>
+	  </system.serviceModel>

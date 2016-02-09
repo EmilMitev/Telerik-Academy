@@ -1,0 +1,240 @@
+When you start from empty project you don't have users. You should manually config them. 
+
+CONTROLLERS
+	-> Business logic of our app. Each controller must inheritance ApiController!
+	-> Name must be like *Controller, the name always end on Controller!)
+		- Example: public class PetController : ApiController { }
+	-> Return values in actions
+		- public void Get() { }
+		- public HttpResponseMessage Get() { return new HttpResponseMessage(HttpStatusCode.*){ //and other staff}; }
+		- public HttpResponseMessage Get() { return this.Request.CreateResponse(HttpStatucCode.*) }
+		- public IHttpActionResult Get() { return this.Ok(); } // this is most useful
+	-> From where get data
+		- public IHttpActionResult Post(int id, [FromBody]Pet pet){} //post method to "api/pets/5" in body {name" = "pesho", "age" = 15}
+		- public IHttpActionResult Post(int id, [FromUri]Pet pet){}  //post method to "api/pets/5?name=pesho?age=15"
+	-> Controller WITHOUT ninject
+		public class StudentsController : ApiController
+	    {
+	        private readonly IStudentsService students;
+
+	        public StudentsController(IStudentsService studentService)
+	        {
+	            this.students = studentService;
+	        }
+
+	        public StudentsController()
+	            : this(new StudentsService())
+	        {
+	        }
+
+	        public IHttpActionResult Get()
+	        {
+	            var result = this.students
+	                .All()
+	                .Select(StudentsDetailsResponseModel.FromModel)
+	                .ToList();
+
+	            return this.Ok(result);
+	        }
+	    }
+	-> Controller WITH ninject
+	    public class StudentsController : ApiController
+	    {
+	        private readonly IStudentsService students;
+
+	        public StudentsController(IStudentsService studentService)
+	        {
+	            this.students = studentService;
+	        }
+
+	        public IHttpActionResult Get()
+	        {
+	            var result = this.students
+	                .All()
+	                .Select(StudentsDetailsResponseModel.FromModel)
+	                .ToList();
+
+	            return this.Ok(result);
+	        }
+	    }
+
+ROUTES
+	-> for restfull Api without {action} in url!
+	-> In webApiConfig.cs
+		- Default behavior -> "api/{controller}/{id}" -> in our example -> api/Pets or api/Pets/2
+			config.Routes.MapHttpRoute(
+				name:"DefaultApi",
+				routeTemplate: "api/{categories}/{id}"
+				default: new {id = RouteParameter.Optional} // If some of placeHolders missing 
+			);
+
+		- Not default(custom route)
+			config.Routes.MapHttpRoute(
+				name:"MyApi",
+				routeTemplate: "api/{categories}/{action}/{id}"
+				default: new { category = "Pets", action = "Get", id = RouteParameter.Optional } // If some of placeHolders missing. Action is name of method to call
+				constraints: new { id = (some Regex), httpMethod = new HttpMethodConstraint(HttpMethod.Post)} // This is constraints. httpMethod -> this route is call only on Post Request!
+			);
+	-> Custom routes
+		- In *Controller.cs -> they override all routes in WebApiConfig.cs
+			Example:
+				[HttpGet]
+				[Route("pesho/gosho/something")]
+				public void Get() { }
+			or
+				[HttpPost]
+				[Route("pesho/gosho/something")]
+				public void Post() { }
+			...
+	-> If there are so so equal routes
+		- If we have many methods with equal routes example:
+			[HttpGet]
+			[Route("api/some/first")]
+			public void Get() { } // This is not mandatory method name to be "Get"
+
+			[HttpGet]
+			[Route("api/some/second")]
+			public void Get() { } // This is not mandatory method name to be "Get"
+
+			[HttpGet]
+			[Route("api/some/third")]
+			public void Get() { } // This is not mandatory method name to be "Get"
+
+		- This can be replace with:
+			[RoutePrefix("api/some")]
+			public class PetsController : ApiController {
+				[HttpGet]
+				[Route("first")]
+				public void Get() { } // This is not mandatory method name to be "Get"
+
+				[HttpGet]
+				[Route("second")]
+				public void Get() { } // This is not mandatory method name to be "Get"
+
+				[HttpGet]
+				[Route("third")]
+				public void Get() { } // This is not mandatory method name to be "Get"
+			}
+
+ACTIONS
+	-> They can be all methods!
+		- Default behavior(it is not mandatory method to be "void").
+				public void Get(){ } -> get method (default behavior)
+				public void Post(){ } -> post method (default behavior)
+			or must start with some method(Get*, Post*, Put* ...)
+				public void GetPets(){ } -> get method (default behavior) 
+				public void PostPets(){ } -> post method (default behavior)
+		- Not default
+			public void SomeMethod(){ } // This is POST method (default!)
+			In Routes:
+				config.Routes.MapHttpRoute(
+					name:"MyApi",
+					routeTemplate: "api/{categories}/{action}/{id}"
+					default: new { category = "Pets", action = "SomeMethod", id = RouteParameter.Optional } 
+				);
+
+			[HttpGet]
+			public void SomeMethod() { }
+		or
+			[HttpPost]
+			public void SomeMethod() { }
+		or
+			[HttpGet]
+			[HttpPost]
+			public void SomeMethod() { }
+		or custom method
+			[AcceptVerbs("Pesho")]
+			public void SomeMethod() { }
+
+		- If we don't want routes to catch the method. This is just public method in class.
+		[NonAction]
+		public void Some() { }
+
+CUSTOM ERRORS
+	[Required(ErrorMessage = "My error")]
+	All errors is in this.ModelState. 
+	To check for errors this.ModelState.IsValid
+	To add a error this.ModelState.AddModelError("SomeError", "Somethis is not valid");
+
+ASYNC OPERATION
+	public async Task<IHttpActionResult> Get()
+	{
+		var pets = await this.db.Pets.ToListAsync();
+
+		return this.Ok(pets);
+	}
+
+SERVICES 
+	-> Without ninject
+		public class StudentsService : IStudentsService
+	    {
+	        private readonly IRepository<Student> students;
+
+	        public StudentsService()
+	        {
+	            var db = new StudentSystemDbContext();
+	            this.students = new EfGenericRepository<Student>(db);
+	        }
+
+	    	public IQueryable<Student> All(int page = 1, int pageSize = 10)
+	        {
+	            return this.students
+	                .All()
+	                .OrderBy(s => s.StudentIdentification)
+	                .Skip((page - 1) * pageSize)
+	                .Take(pageSize);
+	        }
+	    }
+
+	-> With ninject
+	    public class StudentsService : IStudentsService
+	    {
+	        private readonly IGenericRepository<Student> students;
+
+	        public StudentsService(IGenericRepository<Student> studentsRepo)
+	        {
+	            this.students = studentsRepo;
+	        }
+
+	        public IQueryable<Student> All(int page = 1, int pageSize = 10)
+	        {
+	            return this.students
+	                .All()
+	                .OrderBy(s => s.StudentIdentification)
+	                .Skip((page - 1) * pageSize)
+	                .Take(pageSize);
+	        }
+	    }
+	
+DETAILRESPONSEMODEL
+	namespace StudentSystem.Api.Models
+	{
+	    using StudentSystem.Models;
+	    using System;
+	    using System.Linq.Expressions;
+
+	    public class StudentsDetailsResponseModel
+	    {
+	        public static Expression<Func<Student, StudentsDetailsResponseModel>> FromModel
+	        {
+	            get
+	            {
+	                return s => new StudentsDetailsResponseModel
+	                {
+	                    StudentIdentification = s.StudentIdentification,
+	                    FirstName = s.FirstName,
+	                    LastName = s.LastName,
+	                    Level = s.Level
+	                };
+	            }
+	        }
+
+	        public int StudentIdentification { get; set; }
+
+	        public string FirstName { get; set; }
+
+	        public string LastName { get; set; }
+
+	        public int Level { get; set; }
+	    }
+	}

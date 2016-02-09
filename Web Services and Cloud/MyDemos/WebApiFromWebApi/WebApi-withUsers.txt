@@ -1,0 +1,695 @@
+1. Open visual studio 2015
+
+2. File -> New -> Project -> Blank solution [MusicStore]
+
+3. Right Click -> Add -> New Solution Folder [Data]
+
+4. Right Click -> Add -> New Solution Folder [Server] or [Api]
+
+5. Right Click -> Add -> New Solution Folder [Services]
+
+6. Right click on Server folder -> Add -> New project -> ASP.NET Web application [MusicStore.Api] (on Location add "\Server") -> Ok -> Web API -> Ok
+
+7. Delete some files and folders(because MVC is not necessary):
+	favicon.ico
+	Project_Readme.html
+	folders:
+		- View
+		- Scripts
+		- Fonts
+		- Areas
+		- App_Data
+		- Content
+	In App_Start
+		- BundleConfig.cs
+		- FilterConfig.cs
+		- RouteConfig.cs
+	In Controllers
+		- HomeController.cs
+		- ValuesController.cs
+	In Global.asax.cs
+		- AreaRegistration...
+		- FilterConfig...
+		- RouteConfig...
+		- BundleConfig...
+
+8. Config database
+	-> In Web.config
+		- change connection string 
+			<connectionStrings>
+				<add name="MusicStore" connectionString="Data Source=.; Initial Catalog=MusicStoreWebApi; Integrated Security=true" providerName="System.Data.SqlClient" />
+			</connectionStrings>
+
+	-> MusicStore.Models
+		- Right click on Data folder -> Add -> New project -> Class Library [MusicStore.Models] (on Location add "/Data") -> Ok
+	    - Right click on MusicStore.Models -> Manage NuGet -> install Microsoft.AspNet.Identity.EntityFramework
+	    - MusicStore.Models -> Add references System.ComponentModel.DataAnnotations
+
+	-> MusicStore.Data
+	    -Right click on Data folder -> Add -> New project -> Class Library [MusicStore.Data] (on Location add "/Data") -> Ok
+	    - Right click on MusicStore.Data -> Manage NuGet -> install Microsoft.AspNet.Identity.EntityFramework
+	    - MusicStore.Data -> Add references to MusicStore.Models
+
+	-> MusicStore.Api
+	    - In Models -> IdentityModels.cs Rename ApplicationUser to User
+	    - In Models -> IdentityModels.cs Rename ApplicationDbContext to MusicStoreDbContext
+
+	    - From Models -> IdentityModels.cs move [public class User : IdentityUser] to MusicStore.Models project -> Add -> Class [User]
+	    - From Models -> IdentityModels.cs move [public class MusicStoreDbContext : IdentityDbContext<ApplicationUser>] to MusicStore.Data project -> Add -> class [MusicStoreDbContext]
+	    - add reference to Data and Models
+	    - Delete IdentityModels.cs
+	
+	-> fix all errors!
+
+	8.1. In MusicStore.Models
+		-> Add references System.ComponentModel.DataAnnotations
+		-> Right Click on MusicStore.Models -> Add -> Class -> [Album]
+			Example:
+			namespace MusicStore.Models
+			{
+			    using System.Collections.Generic;
+			    using System.ComponentModel.DataAnnotations;
+
+			    public class Album
+			    {
+			        private ICollection<Artist> artists;
+			        private ICollection<Song> songs;
+
+			        public Album()
+			        {
+			            artists = new HashSet<Artist>();
+			            songs = new HashSet<Song>();
+			        }
+
+			        [Key]
+			        public int Id { get; set; }
+
+			        [Required]
+			        public string Title { get; set; }
+
+			        public int Year { get; set; }
+
+			        public string Producer { get; set; }
+
+			        public virtual ICollection<Artist> Artists
+			        {
+			            get { return this.artists; }
+			            set { this.artists = value; }
+			        }
+
+			        public virtual ICollection<Song> Songs
+			        {
+			            get { return this.songs; }
+			            set { this.songs = value; }
+			        }
+			    }
+			}
+	... You can Add more models. You can look demo for more Examples
+
+	8.2. In MusicStore.Data
+  		-> MusicStoreDbContext.cs
+  			Example
+	  		namespace MusicStore.Data
+			{
+			    using Microsoft.AspNet.Identity.EntityFramework;
+			    using MusicStore.Models;
+			    using System.Data.Entity;
+
+			    public class MusicStoreDbContext : IdentityDbContext<User>
+			    {
+			        public MusicStoreDbContext()
+			            : base("MusicStore", throwIfV1Schema: false)
+			        {
+			        }
+
+			        public virtual IDbSet<Album> Albums { get; set; }
+
+			        public virtual IDbSet<Artist> Artists { get; set; }
+
+			        public virtual IDbSet<Song> Songs { get; set; }
+
+			        public new IDbSet<T> Set<T>() where T : class
+			        {
+			            return base.Set<T>();
+			        }
+
+			        public new void SaveChanges()
+			        {
+			            base.SaveChanges();
+			        }
+
+			        public static MusicStoreDbContext Create()
+			        {
+			            return new MusicStoreDbContext();
+			        }
+			    }
+			}
+
+	    -> Create IMusicStoreDbContext
+	    	namespace MusicStore.Data
+			{
+			    using System.Data.Entity;
+			    using MusicStore.Models;
+			    using System.Data.Entity.Infrastructure;
+
+			    public interface IMusicStoreDbContext
+			    {
+			        IDbSet<Album> Albums { get; set; }
+
+			        IDbSet<Artist> Artists { get; set; }
+
+			        IDbSet<Song> Songs { get; set; }
+
+			        void SaveChanges();
+
+			        DbEntityEntry<T> Entry<T>(T entity) where T : class;
+
+			        IDbSet<T> Set<T>() where T : class;
+			    }
+			}
+
+		-> ctrl + Q -> Package Manager Console -> Default project -> MusicStore.Data
+		 enable-migrations
+
+		-> Migration -> Configuration from internal to public 
+			namespace MusicStore.Data.Migrations
+			{
+			    using System.Data.Entity.Migrations;
+
+			    public sealed class Configuration : DbMigrationsConfiguration<MusicStoreDbContext>
+			    {
+			        public Configuration()
+			        {
+			            this.AutomaticMigrationsEnabled = true;
+			            this.AutomaticMigrationDataLossAllowed = true;
+			        }
+			    }
+			}
+
+  	    -> Right click on MusicStore.Data -> Add -> New Folder [Repositories]
+  		    - Right click on Repositories -> Add -> Class [GenericRepository]
+	  			namespace MusicStore.Data.Repositories
+				{
+				    using System;
+				    using System.Data.Entity;
+				    using System.Data.Entity.Infrastructure;
+				    using System.Linq;
+				    using System.Linq.Expressions;
+				    using MusicStore.Data;
+
+				    public class GenericRepository<T> : IGenericRepository<T> where T : class
+				    {
+				        private IMusicStoreDbContext context;
+				        private IDbSet<T> set;
+
+				        public GenericRepository(IMusicStoreDbContext context)
+				        {
+				            this.context = context;
+				            this.set = context.Set<T>();
+				        }
+
+				        public IQueryable<T> All() { return this.set.AsQueryable(); }
+
+				        public IQueryable<T> SearchFor(Expression<Func<T, bool>> conditions) { return this.All().Where(conditions); }
+
+				        public void Add(T entity)
+				        {
+				            var entry = AttachIfDetached(entity);
+				            entry.State = EntityState.Added;
+				        }
+
+				        public void Update(T entity)
+				        {
+				            var entry = AttachIfDetached(entity);
+				            entry.State = EntityState.Modified;
+				        }
+
+				        public void Delete(T entity)
+				        {
+				            var entry = AttachIfDetached(entity);
+				            entry.State = EntityState.Deleted;
+				        }
+
+				        public void Detach(T entity)
+				        {
+				            var entry = this.context.Entry(entity);
+				            entry.State = EntityState.Detached;
+				        }
+
+				        private DbEntityEntry AttachIfDetached(T entity)
+				        {
+				            var entry = this.context.Entry(entity);
+				            if (entry.State == EntityState.Detached)
+				            {
+				                this.set.Attach(entity);
+				            }
+
+				            return entry;
+				        }
+
+				        public void SaveChanges() { this.context.SaveChanges(); }
+				    }
+				}
+
+  		    - Create IGenericRepository
+	  			namespace MusicStore.Data.Repositories
+				{
+				    using System;
+				    using System.Linq;
+				    using System.Linq.Expressions;
+
+				    public interface IGenericRepository<T> where T : class
+				    {
+				        IQueryable<T> All();
+
+				        IQueryable<T> SearchFor(Expression<Func<T, bool>> conditions);
+
+				        void Add(T entity);
+
+				        void Update(T entity);
+
+				        void Delete(T entity);
+
+				        void Detach(T entity);
+
+				        void SaveChanges();
+				    }
+				}
+
+9. In Server -> Service or api project -> Models
+	- Separate AccountBindingModels.cs
+	- Separate AccountViewModels.cs
+	FIX ALL ERRORS!
+
+10. Enable migration on data project
+
+11. In App_Start -> Add -> Class (DatabaseConfig) -> Ok
+	namespace MusicStore.Api
+	{
+	    using MusicStore.Data;
+	    using MusicStore.Data.Migrations;
+	    using System.Data.Entity;
+
+	    public static class DatabaseConfig
+	    {
+	        public static void Initialize()
+	        {
+	            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MusicStoreDbContext, Configuration>());
+	            MusicStoreDbContext.Create().Database.Initialize(true);
+	        }
+	    }
+	}
+
+12. In Global.asax
+	namespace MusicStore.Api
+	{
+	    using System.Web;
+	    using System.Web.Http;
+
+	    public class WebApiApplication : HttpApplication
+	    {
+	        protected void Application_Start()
+	        {
+	            DatabaseConfig.Initialize();
+	            GlobalConfiguration.Configure(WebApiConfig.Register);
+	        }
+	    }
+	}
+
+Configuration END!-------------------------------------------------------------------------Nasty work DONE!---Let's give him some code------
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+ABOUT USERS
+	-> In Controllers -> AccountController.cs is all about user information -> register, you can get more information from user
+	[Autorize] or [AllowAnonymous]
+	-> REGISTER
+		In App_Start -> IdentityConfic.cs - rules about validation on username and password
+		-> Example for postman:
+			on api/Account/Register POST
+			Headers: Content-type -> application/json
+			raw
+			{
+				"Email" : "some@gmail.com",
+				"Password" : "123456",
+				"ConfirmPassword" : "123456"
+			}
+
+	- GET TOKEN
+		In Startup.Auth.cs -> you can view from where you can take token
+		-> Example for postman:
+			on "/Token" POST 
+			x-www-form-urlencoded
+			username -> some@gmail.com
+			password -> 123456
+			grant_type -> password
+
+	- LOGIN
+		on api/values(example!) GET or POST or PUT.....
+		Headers: Autorization -> Bearer <token>
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+13. Right Click on Services -> Add -> New Project -> Class Library [MusicStore.Services.Data]; Add to location \Services
+	-> Add references MusicStore.Models and MusicStore.Data
+	-> Right Click on MusicStore.Services.Data -> Add -> Class [ArtistsService] 
+		- Example: (full crud operation...)
+			namespace MusicStore.Services.Data
+			{
+			    using System.Linq;
+			    using MusicStore.Models;
+			    using StudentSystem.Data.Repositories;
+
+			    public class ArtistsService
+			    {
+			        private readonly IGenericRepository<Artist> artists;
+
+			        public ArtistsService(IGenericRepository<Artist> artistRepo)
+			        {
+			            this.artists = artistRepo;
+			        }
+
+			        // This is without ninject
+			        //public ArtistsService()
+			        //{
+			        //    var db = new MusicStoreDbContext();
+			        //    this.artists = new GenericRepository<Artist>(db);
+			        //}
+
+			        public int Add(string name, string country)
+			        {
+			            var newArtist = new Artist
+			            {
+			                Name = name, 
+			                Country = country
+			            };
+
+			            this.artists.Add(newArtist);
+			            this.artists.SaveChanges();
+
+			            return newArtist.Id;
+			        }
+
+			        public IQueryable<Artist> All(int page = 1, int pageSize = 10)
+			        {
+			            return this.artists
+			                .All()
+			                .OrderBy(s => s.Id)
+			                .Skip((page - 1) * pageSize)
+			                .Take(pageSize);
+			        }
+
+			        public IQueryable<Artist> ById(int id)
+			        {
+			            return this.artists
+			              .All()
+			              .Where(s => s.Id == id);
+			        }
+
+			        public int Delete(int id)
+			        {
+			            var artistToDelete = this.artists.All().FirstOrDefault(s => s.Id == id);
+
+			            if (artistToDelete == null)
+			            {
+			                return 0;
+			            }
+
+			            this.artists.Delete(artistToDelete);
+			            this.artists.SaveChanges();
+
+			            return artistToDelete.Id;
+			        }
+
+			        public int Update(int id, string name, string country)
+			        {
+			            var artistYoUpdate = this.artists.All().FirstOrDefault(s => s.Id == id);
+
+			            if (artistYoUpdate == null)
+			            {
+			                return 0;
+			            }
+
+			            artistYoUpdate.Name = name;
+			            artistYoUpdate.Country = country;
+
+			            this.artists.Update(artistYoUpdate);
+			            this.artists.SaveChanges();
+
+			            return artistYoUpdate.Id;
+			        }
+			    }
+			}
+	-> Create IArtistsService
+		- Example:
+			namespace MusicStore.Services.Data
+			{
+			    using System.Linq;
+			    using MusicStore.Models;
+
+			    public interface IArtistsService
+			    {
+			        IQueryable<Artist> All(int page = 1, int pageSize = 10);
+
+			        IQueryable<Artist> ById(int id);
+
+			        int Add(string name, string country);
+
+			        int Delete(int id);
+
+			        int Update(int id, string name, string country);
+			    }
+			}
+
+14.Right click on MusicStore.Api -> NuGet packages -> Install Ninject.Web.Common.WebHost
+	-> Right click on MusicStore.Api -> NuGet packages -> Install Ninject.Extensions.Conventions
+	-> Config ninject
+		- Example in NinjectConfig.cs
+			private static void RegisterServices(IKernel kernel)
+	        {
+	            kernel
+	               .Bind<IMusicStoreDbContext>()
+	               .To<MusicStoreDbContext>()
+	               .InRequestScope();
+
+	            kernel.Bind(typeof(IGenericRepository<>)).To(typeof(GenericRepository<>));
+
+	            kernel.Bind(b => b.From("MusicStore.Services.Data")
+	                .SelectAllClasses()
+	                .BindDefaultInterface());
+	        }   
+	    - If you have problem and "does not have a default constructor"
+	    	- Add class [NinjectDependencyScope] in api 
+	    		namespace MusicStore.Api
+				{
+				    using Ninject.Syntax;
+				    using System;
+				    using System.Collections.Generic;
+				    using System.Diagnostics.Contracts;
+				    using System.Web.Http.Dependencies;
+				    using Ninject;
+
+				    public class NinjectDependencyScope : IDependencyScope
+				    {
+				        private IResolutionRoot resolver;
+
+				        internal NinjectDependencyScope(IResolutionRoot resolver)
+				        {
+				            Contract.Assert(resolver != null);
+
+				            this.resolver = resolver;
+				        }
+
+				        public void Dispose()
+				        {
+				            IDisposable disposable = resolver as IDisposable;
+				            if (disposable != null)
+				                disposable.Dispose();
+
+				            resolver = null;
+				        }
+
+				        public object GetService(Type serviceType)
+				        {
+				            if (resolver == null)
+				                throw new ObjectDisposedException("this", "This scope has already been disposed");
+
+				            return resolver.TryGet(serviceType);
+				        }
+
+				        public IEnumerable<object> GetServices(Type serviceType)
+				        {
+				            if (resolver == null)
+				                throw new ObjectDisposedException("this", "This scope has already been disposed");
+
+				            return resolver.GetAll(serviceType);
+				        }
+				    }
+
+				    public class NinjectDependencyResolver : NinjectDependencyScope, IDependencyResolver
+				    {
+				        private IKernel kernel;
+
+				        public NinjectDependencyResolver(IKernel kernel)
+				            : base(kernel)
+				        {
+				            this.kernel = kernel;
+				        }
+
+				        public IDependencyScope BeginScope()
+				        {
+				            return new NinjectDependencyScope(kernel.BeginBlock());
+				        }
+				    }
+				}
+			- In Ninject config add
+				private static IKernel CreateKernel()
+		        {
+		            var kernel = new StandardKernel();
+		            try
+		            {
+		                kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
+		                kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+
+		                RegisterServices(kernel);
+		                GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel); // this is newest row!!!!!!!!
+		                return kernel;
+		            }
+		            catch
+		            {
+		                kernel.Dispose();
+		                throw;
+		            }
+		        }
+		- If you have exception on [bootstrapper.Initialize(CreateKernel);]
+			Update ninject
+15. Add response models
+	-> Right click on models -> add -> class [ArtistsDetailsResponseModel]
+		- Example:
+			namespace MusicStore.Api.Models
+			{
+			    using MusicStore.Models;
+			    using System;
+			    using System.Linq.Expressions;
+
+			    public class ArtistsDetailsResponseModel
+			    {
+			        public static Expression<Func<Artist, ArtistsDetailsResponseModel>> FromModel
+			        {
+			            get
+			            {
+			                return s => new ArtistsDetailsResponseModel
+			                {
+			                    Name = s.Name,
+			                    Country = s.Country,
+			                };
+			            }
+			        }
+
+			        public string Name { get; set; }
+
+			        public string Country { get; set; }
+			    }
+			}
+
+16. Add controller to api
+	-> Add references to MusicStore.Services.Data
+	-> Right click on controller folder -> Add -> Controller -> Web API 2 Controller empty [ArtistsController] (you might create class *Controller : ApiController)
+		- Example:
+			namespace MusicStore.Api.Controllers
+			{
+			    using Models;
+			    using Services.Data;
+			    using System.Linq;
+			    using System.Web.Http;
+
+			    public class ArtistsController : ApiController
+			    {
+			        private readonly IArtistsService artists;
+
+			        public ArtistsController(IArtistsService artistService)
+			        {
+			            this.artists = artistService;
+			        }
+			        
+			        // Without ninject
+			        //public ArtistsController()
+			        //    : this(new ArtistsService())
+			        //{
+			        //}
+
+			        public IHttpActionResult Get()
+			        {
+			            var result = this.artists
+			                .All()
+			                .Select(ArtistsDetailsResponseModel.FromModel)
+			                .ToList();
+
+			            return this.Ok(result);
+			        }
+
+			        public IHttpActionResult Get(int id)
+			        {
+
+			            var result = this.artists
+			                .ById(id)
+			                .Select(ArtistsDetailsResponseModel.FromModel)
+			                .FirstOrDefault();
+
+			            return this.Ok(result);
+			        }
+
+			        public IHttpActionResult Post([FromBody]ArtistsDetailsResponseModel artist)
+			        {
+			            if (artist == null)
+			            {
+			                return this.BadRequest();
+			            }
+
+			            if (!this.ModelState.IsValid)
+			            {
+			                return BadRequest(this.ModelState);
+			            }
+
+			            var result = this.artists
+			                .Add(artist.Name,
+			                     artist.Country);
+
+			            return this.Ok(result);
+			        }
+
+			        public IHttpActionResult Delete(int id)
+			        {
+			            var result = this.artists.Delete(id);
+
+			            if (result == 0)
+			            {
+			                return this.BadRequest("Artist doesnt exist!");
+			            }
+
+			            return this.Ok(string.Format("Artist {0} deleted!", result));
+			        }
+
+			        public IHttpActionResult Put(int id, [FromBody] ArtistsDetailsResponseModel artist)
+			        {
+			            if (artist == null)
+			            {
+			                return this.BadRequest();
+			            }
+
+			            if (!this.ModelState.IsValid)
+			            {
+			                return BadRequest(this.ModelState);
+			            }
+
+			            var result = this.artists.Update(id, artist.Name, artist.Country);
+
+			            if (result == 0)
+			            {
+			                return this.BadRequest("Artist doesnt exist!");
+			            }
+
+			            return this.Ok(string.Format("Artist {0} updated!", result));
+			        }
+			    }
+			}
+
+this.User.Identity.Name -> currently logged user

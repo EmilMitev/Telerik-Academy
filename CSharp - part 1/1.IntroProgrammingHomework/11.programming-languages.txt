@@ -1,0 +1,28 @@
+C++ is well-suited for large projects because it has an object-oriented structure. People can collaborate on one program by breaking 
+it up into parts and having a small group or even one individual work on each part. The object-oriented structure also allows code to be 
+reused a lot, which can cut down development time. C++ is also a fairly efficient language - although many C programmers will disagree. 
+C++ and C#:
+While there are a number of subtle traps waiting for the unwary C++ programmer, the syntax of C# is not very different from C++ and 
+the transition to the new language is fairly easy. The interesting part of working with C# is working your way through the new common 
+language runtime library, which provides a host of functionality that previously had to be written by hand. 
+
+C is a popular language, especially in game programming, because it doesn't have the extra packaging of the object-oriented C++. 
+Programmers use C because it makes programs slightly faster and smaller than programs written in C++. You might wonder, however, 
+whether it's worth giving up the reusability of C++ to get the small increase in performance with C, especially when C++ can, 
+where necessary, be written in a C programming style. 
+C and C#
+The syntax of C# is much simpler and prone than C/C++ and is easier for learning.
+
+Java is a multi-platform language that is especially useful in networking. Of course, the most famous usage of Java is on the web,
+with Java applets, but Java is also used to build cross-platform programs that stand alone. Since it resembles C++ in syntax and 
+structure, learning Java is usually quite easy for most C++ programmers. Java offers the advantages provided by object-oriented 
+programming, such as reusability; on the other hand, it can be difficult to write highly efficient code in Java, and Swing, its 
+primary user interface, is notoriously slow. Nevertheless, Java has increased in speed in recent years, and version 1.5 offers 
+some new features for making programming easier. 
+C# and java
+So, which language is superior? You have Java, which will run on many different operating systems without recompiling code. You have C#, 
+which seems to have many more built-in language features, and will run on any operating system that has an installed CLR. Naturally, 
+if you have limited development time and need an application that can run on almost any operating system, then Java seems to be the 
+obvious current choice. But if you know that your application will run on Windows, and you have or don't have limited development time, 
+using a good type-safe, powerful language like C# seems to a very excellent decision. Anywhere in-between, which most software falls, 
+will require a more difficult analysis.

@@ -1,0 +1,58 @@
+body{
+	font-family: arial;
+	font-size: 12px;
+}
+
+table{
+	background-color: rgb(89,89,89);
+	text-align: left;
+	text-decoration: none;
+
+}
+
+th{
+	font-size: 16px;
+	color: rgb(170,177,183);
+	padding-bottom: 10px;
+}
+
+td{
+	padding-bottom: 10px;
+	padding-right: 10px;
+	color: rgb(190,183,177);
+}
+
+td:first-child{
+	font-style: italic;
+	color: rgb(255,248,243);
+    vertical-align:top;
+}
+
+a{
+	text-decoration: none;
+	color:rgb(232,224,157) ;
+}
+
+a:hover{
+	text-decoration: underline;
+}
+
+.orange{
+	color: rgb(225,107,28);
+}
+
+.red{
+	color: rgb(255,0,0);
+}
+
+.greenspot{
+	color:rgb(232,224,157);
+}
+
+.greenspot:before{
+	content: "•";
+	font-size:50px;
+    line-height:16px;
+    vertical-align:top;
+    color:#77b880;
+}

@@ -1,0 +1,84 @@
+html,
+body,
+div,
+ul,
+li,
+frameset,
+legend {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 16px;
+    font-family: "Times New Roman";
+    color: #000;
+}
+
+.root {
+    position: relative;
+}
+
+.preview {
+    display: none;
+    weight: 630px;
+    position: absolute;
+}
+
+
+/*ul*/
+
+.avengers {
+    list-style-type: none;
+}
+
+.avengers .avenger {
+    float: left;
+    border-left: 3px solid #000;
+    border-top: 3px solid #000;
+    border-bottom: 3px solid #000;
+    border-top-left-radius: 15px;
+    padding: 10px 15px;
+    font-weight: bold;
+}
+
+.avengers .avenger:last-of-type {
+    border-right: 3px solid #000;
+}
+
+.avengers .avenger:hover {
+    text-decoration: underline;
+    background: #ccc;
+}
+
+.avengers .avenger:hover .preview {
+    display: block;
+    border: 3px solid #000;
+    margin-top: 10px;
+    background: #ccc;
+}
+
+img {
+    weight: 400px;
+    height: 225px;
+    border: 5px solid #fff;
+    margin: 15px;
+    float: left;
+    border-radius: 5px;
+}
+
+
+/*ul*/
+
+.skills {
+    float: right;
+    align: center;
+    list-style-type: none;
+}
+
+.skills .skill {
+    margin-top: 50px;
+    text-align: center;
+    margin-left: 30px;
+    border: 1px solid #000;
+}

@@ -1,0 +1,39 @@
+body {
+    font-family:Arial;
+}
+table {
+    width:650px;
+    border-spacing:0;
+    border:1px solid#808080;
+}
+th {
+	text-decoration: none;
+    text-align:left;
+    color:#FFFFFF;
+    background-color:#5dbe08;
+    border:1px solid #808080;
+    padding:5px 8px;
+}
+td {
+    border-left:1px solid #808080;
+    padding:8px;
+}
+tr:nth-child(2n+1) {
+    background-color:#ededda;
+}
+th:last-child {
+    width:18%;
+}
+
+.mexico:before{
+	content: url(http://www.quilvestprivateequity.com/wp-content/uploads/2012/06/FlagIcon_Mexico.bmp);
+
+}
+
+.germany:before{
+	content: url(http://victorylibrary.com/graphics/flag-de.gif);
+}
+
+.uk:before{
+	content: url(http://www.ristorante377.com/images/flag_uk.gif);
+}

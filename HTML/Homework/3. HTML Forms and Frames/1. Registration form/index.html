@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Registration form</title>
+</head>
+<body>
+	<table border="1" cellspacing="0">
+		<colgroup>
+			<col width="30px"></col>
+			<col width="250px"></col>
+		</colgroup>
+		<tr>
+			<th>Last Name</th>
+			<td>
+				<input type="text" style="width:225px" />
+			</td>
+		</tr>		
+		<tr>
+			<th>First Name</th>
+			<td>
+				<input type="text" style="width:225px" />
+			</td>
+		</tr>
+		<tr>
+			<th>Address</th>
+			<td>
+				<textarea style="width:215px; height: 50px"></textarea>
+			</td>
+		</tr>
+		<tr>
+			<th>City</th>
+			<td>
+				<input type="text" style="width: 150px" /> 
+				State 
+				<input type="text" style="width: 45px" />
+			</td>
+		</tr>
+		<tr>
+			<th>Zip/Postal Code</th>
+			<td>
+				<input type="text" style="width: 70px" />
+			</td>
+		</tr>
+		<tr>
+			<th>Country</th>
+			<td>
+				<select>
+					<option selected="selected">Bulgaria</option>
+					<option>USA</option>
+					<option>Germany</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>Phone(country code, area code, number)</th>
+			<td>
+				(+<input type="text" style="width: 40px" />) 
+				<input type="text" style="width: 40px" /> 
+				<input type="text" style="width: 100px" />
+			</td>
+		</tr>
+		<tr>
+			<th>E-mail</th>
+			<td>
+				<input type="email" style="width: 225px" />
+			</td>
+		</tr>
+		<tr>
+			<th>Birth date</th>
+			<td>
+				<input type="text" value="дд. мм. гггг г." />
+			</td>
+		</tr>
+		<tr>
+			<th>Genger</th>
+			<td>
+				<select>
+					<option selected="selected">Male</option>
+					<option>Female</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th>Starting date</th>
+			<td>
+				<input type="radio" name="radio" id="spring" />
+				<label for="spring">Spring 2015</label>
+				<input type="radio" name="radio" id="summer" />
+				<label for="summer">Summer 2015</label>
+			</td>
+		</tr>
+		<tr>
+			<th>Comments/Questions</th>
+			<td><textarea style="width:215px; height: 100px"></textarea></td>
+		</tr>
+		<tr>
+			<th colspan="2" style="background: skyblue;">
+				<form>
+					<input type="submit" value="Submit" />
+					<input type="button" value="Clean This Form" />
+				</form>
+			</th>
+		</tr>
+	</table>
+</body>
+</html>

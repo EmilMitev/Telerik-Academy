@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forture Cookies</title>
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="libs/toastr/toastr.css">
+</head>
+<body>
+<div id="root">
+    <header class="container">
+        <div class="row">
+            <h1 class="page-header col-md-6">Forture Cookies
+                <small>Forture Cookies</small>
+            </h1>
+            <form class="form-inline col-md-6" id="container-sign-in">
+                <div class="form-group">
+                    <label class="sr-only" for="tb-username">Username</label>
+                    <input type="text" class="form-control" id="tb-username" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="tb-password">Password</label>
+                    <input type="password" class="form-control" id="tb-password" placeholder="Password">
+                </div>
+                <button id="btn-sign-in" class="btn btn-default">Sign in</button>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Remember me
+                    </label>
+                </div>
+                <a href="#/users/register"> or Register</a>
+            </form>
+            <form class="form-inline col-md-6" id="container-sign-out">
+                <button id="btn-sign-out" class="btn btn-default">Sign out</button>
+            </form>
+        </div>
+        <nav class="navbar navbar-default row">
+            <ul class="nav navbar-nav col-md-8">
+                <li><a href="#/">Home</a></li>
+                <li><a href="#/my-cookie">My Cookie</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div id = "selectForm" class="container">
+        <form>
+            <strong>Sort by:</strong>
+            <select class="target">
+                <option value="likes" selected="selected">likes</option>
+                <option value="shareDate">shareDate</option>
+            </select>
+        </form>
+    </div>
+    <div id="content" class="container">
+
+    </div>
+    <aside id="left">
+
+    </aside>
+    <footer class="footer">
+        <div class="container">
+            <ul>
+                <li>
+                    <a href="#">Github</a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+</div>
+
+<!--libs-->
+<script src="libs/jquery/jquery.js"></script>
+<script src="libs/sammy/sammy.js"></script>
+<script src="libs/handlebars/handlebars.js"></script>
+<script src="libs/bootstrap/js/bootstrap.js"></script>
+<script src="libs/toastr/toastr.js"></script>
+<script src="libs/sha1/index.js"></script>
+<script src="libs/lodash/lodash.js"></script>
+<script src="libs/moment/moment.js"></script>
+
+
+<!-- App: Controllers -->
+<script src="controllers/helpers/controller-helpers.js"></script>
+<script src="controllers/cookiesController.js"></script>
+<script src="controllers/usersController.js"></script>
+
+<!-- App: Loaders -->
+<script src="app/data.js"></script>
+<script src="app/templates.js"></script>
+<script src="app/json-requester.js"></script>
+
+<!-- App: Start -->
+<script src="app.js"></script>
+
+</body>
+</html>

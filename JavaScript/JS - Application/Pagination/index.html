@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="bower_components/simplePagination.js/simplePagination.css"/>
+</head>
+<body>
+
+<div id="pagination">
+
+</div>
+<div id="context">
+
+</div>
+
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/simplePagination.js/jquery.simplePagination.js"></script>
+<script>
+    var data = [];
+    for (var i = 0; i < 1000; i++) {
+        data.push('Hello' + i);
+    }
+
+    $('#pagination').pagination({
+        items: 1000,
+        itemsOnPage: 10,
+        cssStyle: 'light-theme',
+        onPageClick: function (pageNumber) {
+            var showFrom = 10 * (pageNumber - 1),
+                    showTo = showFrom + 10;
+            var dataToShow = data.slice(showFrom, showTo);
+            $('#context').html('');
+
+            for (var i = 0; i < dataToShow.length; i++) {
+                var div = $('<div />').html(dataToShow[i]);
+                div.appendTo($('#context'));
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

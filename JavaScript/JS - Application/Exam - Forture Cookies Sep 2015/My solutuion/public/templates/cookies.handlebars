@@ -1,0 +1,26 @@
+<h2>Cookies</h2>
+<ul class="media">
+    {{#each this}}
+        <h3><a href="#/home?category={{category}}">{{category}}</a></h3>
+        {{#each items}}
+            <li class="media">
+                <a href="#" class="pull-left">
+                    <img src="{{img}}" alt class="img-circle" height="42" width="42"/>
+                </a>
+
+                <div class="media-body" style="width:300px">
+                    <span class="text-muted pull-right">
+                    <small class="text-muted"> {{before}}</small>
+                    </span>
+                    <p>{{text}}</p>
+                    <button type="button" id="testBtn" class="btn btn-success glyphicon glyphicon-thumbs-up">
+                        {{likes}}
+                    </button>
+                    <button type="button" id="testBtnDown" class="btn btn-danger glyphicon glyphicon-thumbs-down" }>
+                        {{dislikes}}
+                    </button>
+                </div>
+            </li>
+        {{/each}}
+    {{/each}}
+</ul>

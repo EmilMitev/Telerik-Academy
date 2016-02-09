@@ -1,0 +1,27 @@
+1.Install system.js
+bower install --save system.js
+
+2.Install babel
+npm install --save babel-core
+
+3.Config babel in index.html
+<script src="bower_components/system.js/dist/system.js"></script>
+<script>
+	System.config({
+		transpiler: 'babel',
+		map:{
+			babel:'./node_modules/babel-core/browser.js'
+		}
+	});
+
+	System.import()
+</script>
+
+4.Install server
+npm install --save http-server
+
+5.Start server
+node ./node_modules/http-server/bin/http-server -p 8888
+
+6.Server is on:
+http://localhost:8888/index.html

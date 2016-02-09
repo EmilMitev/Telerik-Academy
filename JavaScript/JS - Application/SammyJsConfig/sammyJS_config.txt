@@ -1,0 +1,44 @@
+1.Install
+bower init
+bower install sammy
+bower install jquery
+
+2.Config
+in index.html
+
+<div id="content"></div>
+
+<script src= "bower_components/jquery/dist/jquery.js"></script>
+<script src= "bower_components/sammy/lib/sammy.js"></script>
+
+<script>
+var sammyApp = Sammy('#content', function(){
+
+  this.get('#/', function(){
+    this.redirect('#/home');
+  });
+
+  this.get('#/home', function(){
+    $('#content').html("Home")
+  });
+
+  this.get('#/items', function(){
+   var items = ['1','2','3','4'];
+   items.forEach(function(item){
+    $('<a />')
+      .attr('href', '#/items/' + item)
+      .html('Go to item ' + item)
+      .appendTo('#content')
+   });
+  });
+
+  this.get('#/items/:id', function(){
+    $('#content').html('Item with id:' + this.params.id);
+  });
+
+});
+
+$(function(){
+  sammyApp.run('#/');
+});
+</script>

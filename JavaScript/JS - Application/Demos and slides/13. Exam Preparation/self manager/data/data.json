@@ -1,0 +1,138 @@
+{
+  "users": [
+    {
+      "username": "Doncho",
+      "passHash": "4cb5ba2355368d4dfd14c9eee9a134791f7001cb",
+      "usernameLower": "doncho",
+      "authKey": "undefined+tusvd@Kh_@ixbA*Q$fvLmq(CJJmu*DN%E^i@OUr&eoAJn!*uak",
+      "id": "d69707b4-d06d-42ac-bc10-1dde5aaafcf7",
+      "events": [
+        {
+          "id": 449037,
+          "title": "Test",
+          "category": "Work",
+          "description": "",
+          "date": "2015-09-08T23:00:00.000Z",
+          "creatorId": "d69707b4-d06d-42ac-bc10-1dde5aaafcf7",
+          "users": [
+            "d69707b4-d06d-42ac-bc10-1dde5aaafcf7",
+            "d69707b4-d06d-42ac-bc10-1dde5aaafcf7"
+          ]
+        },
+        {
+          "id": 449037,
+          "title": "Test",
+          "category": "Work",
+          "description": "",
+          "date": "2015-09-08T23:00:00.000Z",
+          "creatorId": "d69707b4-d06d-42ac-bc10-1dde5aaafcf7",
+          "users": [
+            "d69707b4-d06d-42ac-bc10-1dde5aaafcf7",
+            "d69707b4-d06d-42ac-bc10-1dde5aaafcf7"
+          ]
+        },
+        {
+          "id": 792579,
+          "title": "Test",
+          "category": "Free time",
+          "description": "",
+          "date": "2015-09-17T23:00:00.000Z",
+          "creatorId": "d69707b4-d06d-42ac-bc10-1dde5aaafcf7",
+          "users": [
+            "d69707b4-d06d-42ac-bc10-1dde5aaafcf7"
+          ]
+        }
+      ],
+      "todos": [
+        {
+          "id": 27882,
+          "text": "qwe",
+          "state": true,
+          "category": "Home"
+        },
+        {
+          "id": 365117,
+          "text": "NEW TODO",
+          "state": false,
+          "category": "Home"
+        }
+      ]
+    },
+    {
+      "username": "Cuki",
+      "passHash": "6edbb5c948d25789eccdfb37b70ff7f728f49786",
+      "usernameLower": "cuki",
+      "authKey": "undefinedLcy$^v^zXyoxyXQ_BbAJIRYwi%KiGGlD^ry+-N@AIwpP%EhOAUK",
+      "id": "f2c8726a-773e-403c-ad76-37dad93c9a8c"
+    },
+    {
+      "username": "Cuki2",
+      "passHash": "dfacf7f490d8e38e7895caad02e3693236216f51",
+      "usernameLower": "cuki2",
+      "authKey": "undefinedTZvCUbyZH(!=m-+)$fcAjzD)NPiWfGt(r!MHSzrCPAb(nGfp%*!",
+      "id": "1987f231-b978-49de-a5eb-d3f57f1f6fa6"
+    },
+    {
+      "username": "Cuki3",
+      "passHash": "05e18f169bb85da8722deb800fa8e3898c809146",
+      "usernameLower": "cuki3",
+      "authKey": "undefined&a*=xajP_XX&NIPuGIJIgcTfFWlZ&#BdA*zD*@TUUvNc^TmOfw(",
+      "id": "22402c86-f18e-4689-9fc3-237205fad856"
+    },
+    {
+      "username": "batko",
+      "passHash": "777ba0c37c8f7e273cac7f72a82996cb7fcebde7",
+      "usernameLower": "batko",
+      "authKey": "undefinedOQ=xNhsrhIy=@vwXqkUF+g^#wT(_V%(bIgtuKzhSRhpHh*sM^RT",
+      "id": "77055728-2519-4c95-a386-21382c6fcdbb",
+      "events": [
+        {
+          "id": 248448,
+          "title": "wedrfg",
+          "category": "wertghj",
+          "description": "wertyhj",
+          "date": "2015-09-21T23:00:00.000Z",
+          "creatorId": "77055728-2519-4c95-a386-21382c6fcdbb",
+          "users": [
+            "77055728-2519-4c95-a386-21382c6fcdbb",
+            "77055728-2519-4c95-a386-21382c6fcdbb"
+          ]
+        },
+        {
+          "id": 248448,
+          "title": "wedrfg",
+          "category": "wertghj",
+          "description": "wertyhj",
+          "date": "2015-09-21T23:00:00.000Z",
+          "creatorId": "77055728-2519-4c95-a386-21382c6fcdbb",
+          "users": [
+            "77055728-2519-4c95-a386-21382c6fcdbb",
+            "77055728-2519-4c95-a386-21382c6fcdbb"
+          ]
+        }
+      ]
+    },
+    {
+      "username": "emo",
+      "passHash": "5d2bc6a1c581c0441930577b3db6d41542340498",
+      "usernameLower": "emo",
+      "authKey": "undefinedKXWKI)TN^tZXCoNI#x-ajb*%XjNd!H@NfCvZUeCHdcqBhTh#b@X",
+      "id": "2ef69ea0-f983-444d-bbac-062a4b393300",
+      "events": [],
+      "todos": [
+        {
+          "id": 820039,
+          "text": "ewreg",
+          "state": false,
+          "category": "dsf"
+        },
+        {
+          "id": 829705,
+          "text": "ewr",
+          "state": false,
+          "category": "dsf"
+        }
+      ]
+    }
+  ]
+}

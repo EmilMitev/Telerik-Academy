@@ -1,0 +1,26 @@
+﻿<div ng-hide="vm.projects">
+    <h2>No available projects</h2>
+</div>
+<div ng-show="vm.projects">
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">Creator name</th>
+                <th class="text-center" ng-show="vm.identity.isAuthenticated()">License</th>
+                <th class="text-center" ng-show="vm.identity.isAuthenticated()">Created on</th>
+                <th class="text-center">Collaborators</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="project in vm.projects">
+                <td ng-show="vm.identity.isAuthenticated()"><a href="#/projects/{{project.Id}}">{{project.Id}}</a></td>
+                <td ng-hide="vm.identity.isAuthenticated()">{{project.Id}}</td>
+                <td>{{project.Name}}</td>
+                <td ng-show="vm.identity.isAuthenticated()">{{project.License}}</td>
+                <td ng-show="vm.identity.isAuthenticated()">{{project.CreatedOn | beautifulDate}}</td>
+                <td>{{project.TotalUsers}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

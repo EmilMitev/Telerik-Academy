@@ -1,0 +1,20 @@
+﻿<div class="container">
+    <div class="well centered bs-component">
+        <form name="createPojectForm" class="form-horizontal">
+            <fieldset>
+                <div class="form-group">
+                    <label for="description" class="col-md-2 control-label">Description</label>
+                    <div class="col-md-10">
+                        <textarea rows="4" cols="50" id="description" placeholder="Description" ng-model="commit.sourceCode" required="required" class="form-control" />
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <button ng-click="vm.createCommit(commit)" ng-disabled="createPojectForm.$invalid" class="btn btn-primary">
+                        Create
+                    </button>
+                    <a href="#/" class="btn btn-primary">Cancel</a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

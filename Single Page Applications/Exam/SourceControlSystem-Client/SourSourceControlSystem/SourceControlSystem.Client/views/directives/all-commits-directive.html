@@ -1,0 +1,21 @@
+﻿<div ng-hide="vm.commits">
+    <h2>No available projects</h2>
+</div>
+<div ng-show="vm.commits">
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th class="text-center">Creator name</th>
+                <th class="text-center">Created on</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="commit in vm.commits">
+                <td>{{commit.Id}}</td>
+                <td>{{commit.UserName}}</td>
+                <td>{{commit.CreatedOn | beautifulDate}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
